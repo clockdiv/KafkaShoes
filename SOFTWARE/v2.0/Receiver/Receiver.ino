@@ -11,13 +11,12 @@
 #include "TB6612FNG.h"
 
 
-typedef struct test_struct {
+typedef struct motor_struct {
   int x;
   int y;
-} test_struct;
+} motor_struct;
 
-//Create a struct_message called myData
-test_struct myData;
+motor_struct motorData;
 
 tb6612fng motors;
 
@@ -33,17 +32,17 @@ unsigned long currentMillis;
 //callback function that will be executed when data is received
 void OnDataRecv(uint8_t * mac, uint8_t *incomingData, uint8_t len) {
   digitalWrite(LED_MESSAGE_RECEIVED, HIGH);
-  memcpy(&myData, incomingData, sizeof(myData));
+  memcpy(&motorData, incomingData, sizeof(motorData));
   /*
     Serial.print("Bytes received: ");
     Serial.println(len);
     Serial.print("x: ");
-    Serial.println(myData.x);
+    Serial.println(motorData.x);
     Serial.print("y: ");
-    Serial.println(myData.y);
+    Serial.println(motorData.y);
     Serial.println();
   */
-  motors.drive(myData.x, myData.y);
+  motors.drive(motorData.x, motorData.y);
 }
 
 
